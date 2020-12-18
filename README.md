@@ -17,7 +17,7 @@
 >
 > - MaximumPercent和minimumHealthyPercent不能同时设置成100，因为这会阻止Roll update
 >
-> - 建议maximumPercent设置为200，或者在force-new-deployment之间，先将maximumPercent修改为200
+> - **建议maximumPercent设置为200，或者在force-new-deployment之前，先将maximumPercent修改为200**
 >
 ```
 ##ECS UpdateService API Request
@@ -143,11 +143,10 @@ HXH:~ hxh$ aws ecs update-service --service test --cluster default --force-new-d
 >
 > - ListTasks API 一次最多只能返回100个TaskARN，如果Service中有超过100个Task，在一次ListTasks API之后，如果有Task没有被返回，则在前一次ListTasks的API Response中会自动包含nextToken字段
 >
-> - 在下一次ListTasks，API中需要指定nextToken，则会从上一次ListTasks返回结果的位置开始，再继续返回下面的Task
+> - 在下一次ListTasks，API中需要指定nextToken，会从上一次ListTasks返回结果的位置开始，再继续返回下面的Task
 >
-> - 如果ListTasks返回所有的Task，Response中不会包含nextToken字段
-
-> - 在API亲求
+> - 如果ListTasks已返回所有的Task，则API Response中不会包含nextToken字段
+>
 
 API参考示例如下：
 ```
